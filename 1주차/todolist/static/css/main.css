@@ -1,0 +1,34 @@
+.info-box {
+  background-color: antiquewhite;
+  height: 300px;
+}
+
+.info-box .todo-form {
+  background-color: orange;
+}
+
+.info-box .todo-form .todo-text {
+  width: max-content;
+  font-weight: bold;
+  font-size: 24px;
+  margin: 0 auto;
+}
+
+.info-box .todo-form .input-div {
+  background-color: aqua;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.info-box .todo-form .input-div #contents {
+  display: inline-block;
+  width: 450px;
+  line-height: 40px;
+  font-size: 18px;
+  border: 1px solid rgba(72, 72, 72, .3);
+  border-radius: 8px;
+}
+
+.info-box .todo-form .input-div #submit-btn {
+  
+}

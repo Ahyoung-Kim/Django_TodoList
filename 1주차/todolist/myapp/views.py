@@ -4,8 +4,17 @@ from .forms import TodoForm
 
 # Create your views here.
 def home(request):
+  if request.method == 'POST' or request.method == 'FILES':
+    form = TodoForm(request.POST, request.FILES)
+    if form.is_valid():
+      form.save()
+  
+  else:
+    form = TodoForm()
+
   todos = Todo.objects.filter().order_by('date')
-  return render(request, 'index.html', {'todos': todos})
+
+  return render(request, 'index.html', {'todos': todos, 'form': form})
 
 def todo_form(request):
   # POST 요청 -> 작성한 폼 가져와서 DB 에 저장하고 'home'으로 이동

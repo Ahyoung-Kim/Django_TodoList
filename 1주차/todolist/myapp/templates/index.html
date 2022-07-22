@@ -1,21 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  <script defer src="{% static 'js/main.js' %}"></script>
+
   <title>Document</title>
 </head>
 <body>
-  <div>
+  <!-- <div>
     <a href="{% url 'todo_form' %}">투두 작성</a>
+  </div> -->
+  <div class="info-box">
+
+    <div class="clock">00:00:00</div>
+    <div class="date">2022년 1월 1일</div>
+
+    <form action="" method="POST" class="todo-form">
+      {% csrf_token %}
+      <p class="todo-text">To-do list를 작성해주세요</p>
+  
+      <div class="input-div">
+        <input type="text" name="contents" id="contents">
+        <input type="submit" value="작성" id="submit-btn">
+      </div>
+    </form>
+
   </div>
+
   {% for todo in todos %}
 
   <div>
-    <p>{{ todo.id }}</p>
     <p>{{ todo.contents }}</p>
     <p>{{ todo.date }}</p>
+    <button onclick="location.href='/edit/{{ todo.id }}'">수정</button>
+    <button onclick="location.href='/delete/{{ todo.id }}'">삭제</button>
   </div>
   <hr />
 
