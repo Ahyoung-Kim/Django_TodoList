@@ -7,42 +7,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  
   <script defer src="{% static 'js/main.js' %}"></script>
 
   <title>Document</title>
 </head>
 <body>
-  <!-- <div>
-    <a href="{% url 'todo_form' %}">투두 작성</a>
-  </div> -->
+
   <div class="info-box">
 
-    <div class="clock">00:00:00</div>
-    <div class="date">2022년 1월 1일</div>
+    <div class="day-clock-div">
+      <div class="date">2022년 1월 1일</div>
+      <div class="clock">00시 00분 00초</div>
+    </div>
 
-    <form action="" method="POST" class="todo-form">
+    <p class="todo-text">To-do list를 작성해주세요</p>
+
+    <form action="{% url 'todo_form' %}" method="POST" class="todo-form">
       {% csrf_token %}
-      <p class="todo-text">To-do list를 작성해주세요</p>
-  
       <div class="input-div">
-        <input type="text" name="contents" id="contents">
+        <input type="text" name="contents" id="contents" maxlength="30">
         <input type="submit" value="작성" id="submit-btn">
       </div>
     </form>
 
   </div>
 
-  {% for todo in todos %}
+  <div class="todo-list">
+    {% for todo in todos %}
 
-  <div>
-    <p>{{ todo.contents }}</p>
-    <p>{{ todo.date }}</p>
-    <button onclick="location.href='/edit/{{ todo.id }}'">수정</button>
-    <button onclick="location.href='/delete/{{ todo.id }}'">삭제</button>
+      <div class="todo-box">
+
+        <div class="todo">
+
+          {% if todo.edit %}
+          <form action="{% url 'edit_post' todo.id %}" method="POST" class="edit-div">
+            {% csrf_token %}
+            <input class="edit-input" type="text" value="{{ todo.contents }}" 
+              name="edit_contents" id="edit_contents" maxlength="30" />
+            <input class="edit-submit" type="submit" value="수정" >
+          </form>
+          {% else %}
+          <div class="text">{{ todo.contents }}</div>
+          {% endif %}
+
+          {% if todo.complete %}
+            <div class="complete">완료</div>
+          {% endif %}
+          <div class="write-date">{{ todo.date }}</div>
+        </div>
+
+        <div class="icons">
+          <span class="material-icons check" onclick="location.href='/complete/{{ todo.id }}'">
+            check_circle
+          </span>
+          <span class="material-icons cancel" onclick="location.href='/delete/{{ todo.id }}'">
+            cancel
+          </span>
+          <span class="material-icons edit" onclick="location.href='/edit/{{ todo.id }}'">
+            edit
+          </span>
+        </div>
+      </div>
+
+    {% endfor %}
   </div>
-  <hr />
 
-  {% endfor %}
 </body>
 </html>

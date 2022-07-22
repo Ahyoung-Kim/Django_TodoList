@@ -23,4 +23,6 @@ urlpatterns = [
     path('todoform/', myapp.views.todo_form, name="todo_form"),
     path('delete/<int:pk>', myapp.views.delete_todo, name="delete_todo"),
     path('edit/<int:pk>', myapp.views.edit_todo, name="edit_todo"),
+    path('editpost/<int:pk>', myapp.views.edit_post, name="edit_post"),
+    path('complete/<int:pk>', myapp.views.complete_todo, name="complete_todo")
 ]

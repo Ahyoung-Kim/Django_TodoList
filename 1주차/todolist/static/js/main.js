@@ -1,13 +1,21 @@
 const clock = document.querySelector('.clock');
 const dateEl = document.querySelector('.date');
 
+const todoBoxs = document.querySelectorAll('.todo-box');
+const completes = document.querySelectorAll('.complete');
+const checks = document.querySelectorAll('.material-icons.check');
+
+// console.log(todoBoxs);
+// console.log(writeDates);
+// console.log(checks);
+
 function getClock() {
     const date = new Date();
     const hours=String(date.getHours()).padStart(2, "0");
     const minutes=String(date.getMinutes()).padStart(2, "0");
     const seconds=String(date.getSeconds()).padStart(2, "0");
     
-    clock.innerText = `${hours}:${minutes}:${seconds}`; //텍스트 변경
+    clock.innerText = `${hours}시 ${minutes}분 ${seconds}초`; //텍스트 변경
 }
 
 getClock();
@@ -28,3 +36,13 @@ function getDate() {
 }
 
 getDate();
+
+// function setCheck(e){
+//   const idx = e.target.id;
+//   completes[idx].classList.toggle('hidden')
+// }
+
+// checks.forEach((check, idx) => {
+//   check.id = idx;
+//   check.addEventListener('click', setCheck);
+// })
