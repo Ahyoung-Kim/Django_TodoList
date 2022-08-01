@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,71 +10,106 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-  
+
   <script defer src="{% static 'js/main.js' %}"></script>
+  <!-- <script defer src="{% static 'js/calendar.js' %}"></script> -->
 
   <title>Document</title>
 </head>
+
 <body>
 
   <div class="info-box">
+
+    {% for date in dates %}
+      {% if date.cnt > 0 %}
+      <div class="active">{{date.year}} {{date.month}} {{date.date}}</div>
+      {% endif %}
+    {% endfor %}
 
     <div class="day-clock-div">
       <div class="date">2022년 1월 1일</div>
       <div class="clock">00시 00분 00초</div>
     </div>
 
-    <p class="todo-text">To-do list를 작성해주세요</p>
-
-    <form action="{% url 'todo_form' %}" method="POST" class="todo-form">
-      {% csrf_token %}
-      <div class="input-div">
-        <input type="text" name="contents" id="contents" maxlength="30">
-        <input type="submit" value="작성" id="submit-btn">
-      </div>
-    </form>
+    <p class="todo-text">To-do list Calendar</p>
 
   </div>
 
-  <div class="todo-list">
-    {% for todo in todos %}
+  <div class="contents-box">
 
-      <div class="todo-box">
+    <div class="calendar">
 
-        <div class="todo">
-
-          {% if todo.edit %}
-          <form action="{% url 'edit_post' todo.id %}" method="POST" class="edit-div">
-            {% csrf_token %}
-            <input class="edit-input" type="text" value="{{ todo.contents }}" 
-              name="edit_contents" id="edit_contents" maxlength="30" />
-            <input class="edit-submit" type="submit" value="수정" >
-          </form>
-          {% else %}
-          <div class="text">{{ todo.contents }}</div>
-          {% endif %}
-
-          {% if todo.complete %}
-            <div class="complete">완료</div>
-          {% endif %}
-          <div class="write-date">{{ todo.date }}</div>
-        </div>
-
-        <div class="icons">
-          <span class="material-icons check" onclick="location.href='/complete/{{ todo.id }}'">
-            check_circle
-          </span>
-          <span class="material-icons cancel" onclick="location.href='/delete/{{ todo.id }}'">
-            cancel
-          </span>
-          <span class="material-icons edit" onclick="location.href='/edit/{{ todo.id }}'">
-            edit
-          </span>
-        </div>
+      <div class="calendar-nav">
+        <span class="material-icons arrow_left">
+          arrow_left
+        </span>
+        <span class="year-month">
+          2022년 1월
+        </span>
+        <span class="material-icons arrow_right">
+          arrow_right
+        </span>
       </div>
 
-    {% endfor %}
+      <div class="day-nav">
+        <p class="day sunday">일</p>
+        <p class="day">월</p>
+        <p class="day">화</p>
+        <p class="day">수</p>
+        <p class="day">목</p>
+        <p class="day">금</p>
+        <p class="day saturday">토</p>
+      </div>
+      <div class="date-div">
+        <div class="calendar-date day sunday"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day saturday"></div>
+        <div class="calendar-date day sunday"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day saturday"></div>
+        <div class="calendar-date day sunday"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day saturday"></div>
+        <div class="calendar-date day sunday"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day saturday"></div>
+        <div class="calendar-date day sunday"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day saturday"></div>
+        <div class="calendar-date day sunday"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day"></div>
+        <div class="calendar-date day saturday"></div>
+      </div>
+
+    </div>
   </div>
+
 
 </body>
+
 </html>

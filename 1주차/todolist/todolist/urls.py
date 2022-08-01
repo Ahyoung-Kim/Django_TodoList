@@ -24,5 +24,12 @@ urlpatterns = [
     path('delete/<int:pk>', myapp.views.delete_todo, name="delete_todo"),
     path('edit/<int:pk>', myapp.views.edit_todo, name="edit_todo"),
     path('editpost/<int:pk>', myapp.views.edit_post, name="edit_post"),
-    path('complete/<int:pk>', myapp.views.complete_todo, name="complete_todo")
+    path('complete/<int:pk>', myapp.views.complete_todo, name="complete_todo"),
+
+    path('calendar/', myapp.views.calendar, name="calendar"),
+    path('calendar/get', myapp.views.calendar_get, name="calendar_get"),
+    path('calendar/delete/<int:pk>', myapp.views.calendar_delete, name="calendar_delete"),
+    path('calendar/complete/<int:pk>', myapp.views.calendar_complete, name="calendar_complete"),
+    path('calendar/edit/<int:pk>', myapp.views.calendar_edit),
+    path('calendar/edit/post/<int:pk>', myapp.views.calendar_edit_post, name="calendar_edit")
 ]

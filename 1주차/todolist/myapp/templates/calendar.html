@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+  <!-- <script defer src="{% static 'js/main.js' %}"></script> -->
+  <script defer src="{% static 'js/calendar.js' %}"></script>
+
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="info-box">
+
+    <div class="day-clock-div" onclick="location.href='/'"
+      style="cursor: pointer;"
+    >
+      <span class="material-icons">
+        home
+      </span>
+    </div>
+
+    <p class="todo-text">
+      {{ year }}년 {{ month }}월 {{ date }}일의 To-do list
+    </p>
+
+    <form class="todo-form">
+      {% csrf_token %}
+      <div class="input-div">
+        <input type="text" name="contents" id="contents" maxlength="30">
+        <input type="submit" value="작성" id="submit-btn">
+      </div>
+    </form>
+
+  </div>
+
+  <div class="contents-box">
+    <div class="todo-list">
+      {% for todo in currDate.todo_set.all %}
+
+      <div class="todo-box">
+
+        <div class="todo">
+
+          {% if todo.edit %}
+          <form id="{{ todo.id }}" action="{% url 'calendar_edit' todo.id %}?year={{year}}&month={{month}}&date={{date}}" method="POST" class="edit-div">
+            {% csrf_token %}
+            <input class="edit-input" type="text" value="{{ todo.contents }}" name="edit_contents" id="edit_contents"
+              maxlength="30" />
+            <input id="{{ todo.id }}" class="edit-submit" type="submit" value="수정">
+          </form>
+          {% else %}
+          <div class="text">{{ todo.contents }}</div>
+          {% endif %}
+
+          {% if todo.complete %}
+          <div class="complete">완료</div>
+          {% endif %}
+          <div class="write-date">{{ todo.date }}</div>
+        </div>
+
+        <div class="icons">
+          <span id="{{ todo.id }}" class="material-icons check">
+            check_circle
+          </span>
+          <span id="{{ todo.id }}" class="material-icons cancel">
+            cancel
+          </span>
+          <span id="{{ todo.id }}" class="material-icons edit" >
+            edit
+          </span>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+
+
+  </div>
+
+</body>
+
+</html>
